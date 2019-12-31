@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIconFile</key>
+	<string>Icon.pdf</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.mediaatelier.kimaiimporter</string>
+	<key>Globals</key>
+	<array>
+		<dict>
+			<key>label</key>
+			<string>Your Kimai URL</string>
+			<key>name</key>
+			<string>url</string>
+			<key>type</key>
+			<string>string</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Your Kimai username</string>
+			<key>name</key>
+			<string>username</string>
+			<key>type</key>
+			<string>string</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Your Kimai API token</string>
+			<key>name</key>
+			<string>token</string>
+			<key>type</key>
+			<string>password</string>
+		</dict>
+	</array>
+	<key>copyright</key>
+	<string>© 2019 Kevin Papst</string>
+	<key>CFBundleVersion</key>
+	<string>2.0</string>
+	<key>GlobalsInfo</key>
+	<string>Enter your Kimai URL, username and API token to allow access to your data.</string>
+	<key>GrandTotalMinimumVersion</key>
+	<real>4</real>
+	<key>types</key>
+	<array>
+		<string>timeimporter</string>
+	</array>
+</dict>
+</plist>
