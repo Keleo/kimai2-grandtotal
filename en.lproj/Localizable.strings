@@ -1,6 +1,7 @@
 "Your Kimai API token" = "API Password";
 "Your Kimai URL" = "Kimai URL";
 "Your Kimai username" = "Username";
+"More about Kimai" = "More about Kimai";
 "Enter your Kimai URL, username and API token to allow access to your data." = "Enter your Kimai URL, username and API token to allow access to your data.";
 "Please check your settings: Kimai version could not be detected." = "Please check your settings, the Kimai version could not be detected.";
 "This plugin works only with Kimai 1.6 and later." = "This plugin works only with Kimai 1.6 and later.";

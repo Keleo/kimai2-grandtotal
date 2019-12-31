@@ -37,7 +37,7 @@ if (url === undefined || url === null || url === '' || username === undefined ||
     let version = kimaiValidateVersion(apiUrl, username, token);
 
     if (version !== true) {
-        // this looks weird, but it seems this is how the embedded javascript engine works
+        // looks weird ;-) but this is how the embedded javascript engine works
         version;
     } else {
         kimaiGetTimesheets(apiUrl, username, token);
