@@ -33,8 +33,8 @@ if (url === undefined || url === null || url === '' || username === undefined ||
     localize("Enter your Kimai URL, username and API token to allow access to your data.");
 } else {
     // make sure the api base path is properly prefixed
-    let apiUrl = url.replace(new RegExp('\/$'), '') + '/api';
-    let version = kimaiValidateVersion(apiUrl, username, token);
+    var apiUrl = url.replace(new RegExp('\/$'), '') + '/api';
+    var version = kimaiValidateVersion(apiUrl, username, token);
 
     if (version !== true) {
         // looks weird ;-) but this is how the embedded javascript engine works
@@ -46,8 +46,8 @@ if (url === undefined || url === null || url === '' || username === undefined ||
 
 function kimaiGetApiJson(url, username, token)
 {
-    let header = {'X-AUTH-USER': username, 'X-AUTH-TOKEN': token};
-    let result = loadURL("GET", url, header);
+    var header = {'X-AUTH-USER': username, 'X-AUTH-TOKEN': token};
+    var result = loadURL("GET", url, header);
 
     // this should be improved
     if (result.length === 0) {
@@ -59,7 +59,7 @@ function kimaiGetApiJson(url, username, token)
 
 function kimaiValidateVersion(url, username, token)
 {
-    let version = kimaiGetApiJson(url + '/version', username, token);
+    var version = kimaiGetApiJson(url + '/version', username, token);
 
     if (version["grandtotal_error"] !== undefined) {
         return localize(version["grandtotal_error"]);
@@ -81,7 +81,7 @@ function kimaiValidateVersion(url, username, token)
 
     // unsupported version
     if (version['version'] !== undefined) {
-        let intVersion = parseInt(version['version'].replace('.', '').substr(0, 2));
+        var intVersion = parseInt(version['version'].replace('.', '').substr(0, 2));
         if (intVersion < 16) {
             return localize("This plugin works only with Kimai 1.6 and later.");
         }
@@ -93,52 +93,52 @@ function kimaiValidateVersion(url, username, token)
 function kimaiGetTimesheets(url, username, token)
 {
     // load all entities for mapping
-    let customers = {};
-    let projects = {};
-    let activities = {};
-    let users = {};
+    var customers = {};
+    var projects = {};
+    var activities = {};
+    var users = {};
 
-    let apiCustomers = kimaiGetApiJson(url + '/customers?visible=3', username, token);
+    var apiCustomers = kimaiGetApiJson(url + '/customers?visible=3', username, token);
     if (apiCustomers["grandtotal_error"]) {
         return apiCustomers["grandtotal_error"];
     }
-    for (let customer of apiCustomers) {
+    for (var customer of apiCustomers) {
         customers[customer['id']] = customer;
     }
 
-    let apiProjects = kimaiGetApiJson(url + '/projects?visible=3', username, token);
+    var apiProjects = kimaiGetApiJson(url + '/projects?visible=3', username, token);
     if (apiProjects["grandtotal_error"]) {
         return apiProjects["grandtotal_error"];
     }
-    for (let project of apiProjects) {
+    for (var project of apiProjects) {
         projects[project['id']] = project;
     }
 
-    let apiActivities = kimaiGetApiJson(url + '/activities?visible=3', username, token);
+    var apiActivities = kimaiGetApiJson(url + '/activities?visible=3', username, token);
     if (apiActivities["grandtotal_error"]) {
         return apiActivities["grandtotal_error"];
     }
-    for (let activity of apiActivities) {
+    for (var activity of apiActivities) {
         activities[activity['id']] = activity;
     }
 
-    let apiUsers = kimaiGetApiJson(url + '/users?visible=3', username, token);
+    var apiUsers = kimaiGetApiJson(url + '/users?visible=3', username, token);
     if (apiUsers["grandtotal_error"]) {
         return apiUsers["grandtotal_error"];
     }
-    for (let user of apiUsers) {
+    for (var user of apiUsers) {
         users[user['id']] = user;
     }
 
     // now query the timesheets and prepare the result
-    let result = [];
+    var result = [];
 
     // loop over pages instead of 9999 hardcoded entries?
-    let aItems = kimaiGetApiJson(url + '/timesheets?active=0&size=9999&user=all', username, token);
+    var aItems = kimaiGetApiJson(url + '/timesheets?active=0&size=9999&user=all', username, token);
 
-    for (let aEntry of aItems)
+    for (var aEntry of aItems)
     {
-        let aItemResult = {
+        var aItemResult = {
             'startDate': aEntry['begin'],
             'client': '',
             'project': '',
@@ -155,7 +155,7 @@ function kimaiGetTimesheets(url, username, token)
             if (projects[aEntry['project']] === undefined || projects[aEntry['project']] === null) {
                 log('Unknown project with ID: ' + aEntry['project']);
             } else {
-                let curProject = projects[aEntry['project']];
+                var curProject = projects[aEntry['project']];
                 aItemResult['project'] = curProject['name'];
 
                 // how to handle unknown customer?
@@ -178,7 +178,7 @@ function kimaiGetTimesheets(url, username, token)
         if (users[aEntry['user']] === undefined || users[aEntry['user']] === null) {
             log('Unknown user with ID: ' + aEntry['user']);
         } else {
-            let curUser = users[aEntry['user']];
+            var curUser = users[aEntry['user']];
             if (curUser['alias'] !== undefined && curUser['alias'] !== null && curUser['alias'] !== '') {
                 aItemResult['user'] = curUser['alias'];
             } else {
