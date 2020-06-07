@@ -9,3 +9,4 @@ You should hit
 > I know it's great to get something for free... but please keep in mind:
 > I need to pay bills as well and without your donations this is impossible.
  
+For more information visit [https://github.com/Keleo/kimai2-grandtotal](https://github.com/Keleo/kimai2-grandtotal)
