@@ -16,7 +16,7 @@ This is a Grandtotal plugin to import timesheet data from Kimai 2.
 
 ```bash
 rm Kimai2.grandtotalplugin.zip
-zip -r Kimai2.grandtotalplugin.zip . -x ".*" -x "__MACOSX" -x "Kimai2.grandtotalplugin.zip"
+zip -r Kimai2.grandtotalplugin.zip Kimai2.grandtotalplugin -x ".*" -x "__MACOSX" -x "Kimai2.grandtotalplugin.zip" -x ".DS_Store"
 git commit -m "Updated release"
 git push
 ```
