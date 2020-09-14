@@ -9,6 +9,14 @@ This is a Grandtotal plugin to import timesheet data from Kimai 2.
 
 ### How to create a new release
 
+- Delete the ZIP
 - ZIP the `Kimai2.grandtotalplugin` directory
 - Push the ZIP
 - Create a new GitHub release and attach the ZIP
+
+```bash
+rm Kimai2.grandtotalplugin.zip
+zip -r Kimai2.grandtotalplugin.zip . -x ".*" -x "__MACOSX" -x "Kimai2.grandtotalplugin.zip"
+git commit -m "Updated release"
+git push
+```
