@@ -46,7 +46,7 @@
 	<key>CFBundleVersion</key>
 	<string>2.0</string>
 	<key>GlobalsInfo</key>
-	<string>Enter your Kimai URL, username and API token to allow access to your data.</string>
+	<string>Enter your Kimai URL, username and API token to allow access to your data. The user needs the system-admin role.</string>
 	<key>GrandTotalMinimumVersion</key>
 	<real>4</real>
 	<key>types</key>
