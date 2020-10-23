@@ -133,8 +133,15 @@ function kimaiGetTimesheets(url, username, token)
     // now query the timesheets and prepare the result
     var result = [];
 
-    // loop over pages instead of 9999 hardcoded entries?
-    var aItems = kimaiGetApiJson(url + '/timesheets?active=0&size=9999&user=all', username, token);
+    // TODO loop over pages instead of 9999 hardcoded entries?
+    var timesUrl = url + '/timesheets?active=0&size=9999';
+    if (loadAllUsers !== null && loadAllUsers !== undefined && loadAllUsers === true) {
+        timesUrl = timesUrl + '&user=all';
+    }
+    if (loadExported !== null && loadExported !== undefined && loadExported !== true) {
+        timesUrl = timesUrl + '&exported=0';
+    }
+    var aItems = kimaiGetApiJson(timesUrl, username, token);
 
     for (var aEntry of aItems)
     {

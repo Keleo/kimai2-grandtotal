@@ -21,3 +21,10 @@ git add Kimai2.grandtotalplugin.zip
 git commit -m "Updated release"
 git push
 ```
+
+### How to open the JS log in GrandTotal
+
+The console will open automatically if some debug code is included: 
+```
+log('a message');
+```

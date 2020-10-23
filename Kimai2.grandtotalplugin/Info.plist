@@ -34,6 +34,22 @@
 		</dict>
 		<dict>
 			<key>label</key>
+			<string>Load exported times</string>
+			<key>name</key>
+			<string>loadExported</string>
+			<key>type</key>
+			<string>boolean</string>
+		</dict>
+		<dict>
+			<key>label</key>
+			<string>Load times for all user</string>
+			<key>name</key>
+			<string>loadAllUsers</string>
+			<key>type</key>
+			<string>boolean</string>
+		</dict>
+		<dict>
+			<key>label</key>
 			<string>More about Kimai</string>
 			<key>url</key>
 			<string>https://www.kimai.org/</string>
@@ -42,7 +58,7 @@
 		</dict>
 	</array>
 	<key>copyright</key>
-	<string>© 2019 Kevin Papst</string>
+	<string>© 2019-2020 Kevin Papst</string>
 	<key>CFBundleVersion</key>
 	<string>2.0</string>
 	<key>GlobalsInfo</key>
