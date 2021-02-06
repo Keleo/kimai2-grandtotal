@@ -1,6 +1,6 @@
 # Grandtotal 6 - Kimai plugin
 
-This is a Grandtotal plugin to import timesheet data from Kimai 2.
+This is a Grandtotal plugin to import timesheet data from Kimai 2. Users need the system-admin role and an API password.
 
 ## 🎉 DONATE 🎉
 
