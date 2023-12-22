@@ -1,6 +1,6 @@
-# Grandtotal 6 - Kimai plugin
+# Grandtotal - Kimai importer plugin
 
-This is a Grandtotal plugin to import timesheet data from [Kimai](https://github.com/kimai/kimai) the [open-source time-tracker](https://www.kimai.org/).
+This is a Grandtotal plugin to import timesheet data from [Kimai](https://github.com/kimai/kimai) the [open-source time-tracker](https://www.kimai.org/), and it's [cloud based time-tracker](https://www.kimai.cloud) companion.
 
 ### How to create a new release
 
