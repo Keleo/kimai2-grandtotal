@@ -82,8 +82,8 @@ function kimaiValidateVersion(url, username, token)
     // unsupported version
     if (version['version'] !== undefined) {
         var intVersion = parseInt(version['version'].replace('.', '').substr(0, 3));
-        if (intVersion < 16) {
-            return localize("This plugin works only with Kimai 1.6 and later.");
+        if (intVersion < 220) {
+            return localize("This plugin works only with Kimai %version% and later.").replace('%version%', '2.20');
         }
     }
 
