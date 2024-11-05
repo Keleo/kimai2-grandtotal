@@ -65,6 +65,8 @@
 	<string>Enter your Kimai URL, username and API token to allow access to your data.</string>
 	<key>GrandTotalMinimumVersion</key>
 	<real>4</real>
+	<key>URL</key>
+	<string>https://github.com/Keleo/kimai2-grandtotal/raw/master/Kimai2.grandtotalplugin.zip</string>
 	<key>types</key>
 	<array>
 		<string>timeimporter</string>
