@@ -29,26 +29,25 @@
 */
 
 // check for credentials first and show a proper message if missing
-if (url === undefined || url === null || url === '' || username === undefined || username === null || username === '' || token === undefined || token === null || token === '') {
-    localize("Enter your Kimai URL, username and API token to allow access to your data.");
+if (url === undefined || url === null || url === '' || token === undefined || token === null || token === '') {
+    localize("Enter your Kimai URL and API token to allow access to your data.");
 } else {
     // make sure the api base path is properly prefixed
     var apiUrl = url.replace(new RegExp('\/$'), '') + '/api';
-    var version = kimaiValidateVersion(apiUrl, username, token);
+    var version = kimaiValidateVersion(apiUrl, token);
 
     if (version !== true) {
         // looks weird ;-) but this is how the embedded javascript engine works
         version;
     } else {
-        kimaiGetTimesheets(apiUrl, username, token);
+        kimaiGetTimesheets(apiUrl, token);
     }
 }
 
-function kimaiGetApiJson(url, username, token)
+function kimaiGetApiJson(url, token)
 {
-    var header = {'X-AUTH-USER': username, 'X-AUTH-TOKEN': token};
+    var header = {'Authorization': 'Bearer ' + token};
     var result = loadURL("GET", url, header);
-
     // this should be improved
     if (result.length === 0) {
         return null;
@@ -57,9 +56,9 @@ function kimaiGetApiJson(url, username, token)
     return JSON.parse(result);
 }
 
-function kimaiValidateVersion(url, username, token)
+function kimaiValidateVersion(url, token)
 {
-    var version = kimaiGetApiJson(url + '/version', username, token);
+    var version = kimaiGetApiJson(url + '/version', token);
 
     if (version["grandtotal_error"] !== undefined) {
         return localize(version["grandtotal_error"]);
@@ -90,7 +89,7 @@ function kimaiValidateVersion(url, username, token)
     return true;
 }
 
-function kimaiGetTimesheets(url, username, token)
+function kimaiGetTimesheets(url, token)
 {
     // load all entities for mapping
     var customers = {};
@@ -98,7 +97,7 @@ function kimaiGetTimesheets(url, username, token)
     var activities = {};
     var users = {};
 
-    var apiCustomers = kimaiGetApiJson(url + '/customers?visible=3', username, token);
+    var apiCustomers = kimaiGetApiJson(url + '/customers?visible=3', token);
     if (apiCustomers["grandtotal_error"]) {
         return apiCustomers["grandtotal_error"];
     }
@@ -106,7 +105,7 @@ function kimaiGetTimesheets(url, username, token)
         customers[customer['id']] = customer;
     }
 
-    var apiProjects = kimaiGetApiJson(url + '/projects?visible=3', username, token);
+    var apiProjects = kimaiGetApiJson(url + '/projects?visible=3', token);
     if (apiProjects["grandtotal_error"]) {
         return apiProjects["grandtotal_error"];
     }
@@ -114,7 +113,7 @@ function kimaiGetTimesheets(url, username, token)
         projects[project['id']] = project;
     }
 
-    var apiActivities = kimaiGetApiJson(url + '/activities?visible=3', username, token);
+    var apiActivities = kimaiGetApiJson(url + '/activities?visible=3', token);
     if (apiActivities["grandtotal_error"]) {
         return apiActivities["grandtotal_error"];
     }
@@ -122,7 +121,7 @@ function kimaiGetTimesheets(url, username, token)
         activities[activity['id']] = activity;
     }
 
-    var apiUsers = kimaiGetApiJson(url + '/users?visible=3', username, token);
+    var apiUsers = kimaiGetApiJson(url + '/users?visible=3', token);
     if (apiUsers["grandtotal_error"]) {
         return apiUsers["grandtotal_error"];
     }
@@ -141,7 +140,7 @@ function kimaiGetTimesheets(url, username, token)
     if (loadExported !== null && loadExported !== undefined && loadExported !== true) {
         timesUrl = timesUrl + '&exported=0';
     }
-    var aItems = kimaiGetApiJson(timesUrl, username, token);
+    var aItems = kimaiGetApiJson(timesUrl, token);
 
     for (var aEntry of aItems)
     {

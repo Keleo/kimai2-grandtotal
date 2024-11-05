@@ -18,14 +18,6 @@
 		</dict>
 		<dict>
 			<key>label</key>
-			<string>Your Kimai username</string>
-			<key>name</key>
-			<string>username</string>
-			<key>type</key>
-			<string>string</string>
-		</dict>
-		<dict>
-			<key>label</key>
 			<string>Your Kimai API token</string>
 			<key>name</key>
 			<string>token</string>
@@ -58,9 +50,9 @@
 		</dict>
 	</array>
 	<key>copyright</key>
-	<string>© 2019-2020 Kevin Papst</string>
+	<string>© 2019-2024 Kevin Papst</string>
 	<key>CFBundleVersion</key>
-	<string>2.0</string>
+	<string>2.1</string>
 	<key>GlobalsInfo</key>
 	<string>Enter your Kimai URL, username and API token to allow access to your data.</string>
 	<key>GrandTotalMinimumVersion</key>
