@@ -146,8 +146,8 @@ function kimaiGetTimesheets(url, token)
     {
         var minutes = Math.round(aEntry['duration'] / 60);
         var roundedMinutes = aEntry['rate'] / minutes * 60;
-        if (Math.round(roundedMinutes, 2) != roundedMinutes) {
-            aEntry['rate'] = minutes / 60 * Math.round(roundedMinutes, 2);
+        if (Math.round(roundedMinutes) !== roundedMinutes) {
+            aEntry['rate'] = minutes / 60 * Math.round(roundedMinutes);
         }
         var aItemResult = {
             'startDate': aEntry['begin'],
