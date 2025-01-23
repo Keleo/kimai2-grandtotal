@@ -105,7 +105,7 @@ function kimaiGetTimesheets(url, token)
         customers[customer['id']] = customer;
     }
 
-    var apiProjects = kimaiGetApiJson(url + '/projects?visible=3', token);
+    var apiProjects = kimaiGetApiJson(url + '/projects?visible=3&ignoreDates=1', token);
     if (apiProjects["grandtotal_error"]) {
         return apiProjects["grandtotal_error"];
     }
