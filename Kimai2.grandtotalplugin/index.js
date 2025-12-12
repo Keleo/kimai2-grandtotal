@@ -133,72 +133,80 @@ function kimaiGetTimesheets(url, token)
     var result = [];
 
     // TODO loop over pages instead of 9999 hardcoded entries?
-    var timesUrl = url + '/timesheets?active=0&size=9999';
+    var timesUrl = url + '/timesheets?active=0&size=500';
     if (loadAllUsers !== null && loadAllUsers !== undefined && loadAllUsers === true) {
         timesUrl = timesUrl + '&user=all';
     }
     if (loadExported !== null && loadExported !== undefined && loadExported !== true) {
         timesUrl = timesUrl + '&exported=0';
     }
-    var aItems = kimaiGetApiJson(timesUrl, token);
-
-    for (var aEntry of aItems)
-    {
-        var minutes = Math.round(aEntry['duration'] / 60);
-        var roundedMinutes = aEntry['rate'] / minutes * 60;
-        if (Math.round(roundedMinutes) !== roundedMinutes) {
-            aEntry['rate'] = minutes / 60 * Math.round(roundedMinutes);
-        }
-        var aItemResult = {
-            'startDate': aEntry['begin'],
-            'client': '',
-            'project': '',
-            'minutes': minutes,
-            'notes': aEntry['description'] !== null ? aEntry['description'] : '',
-            'label': aEntry['tags'].join(", "),
-            'user': aEntry['user'],
-            'cost': aEntry['rate'],
-            'uid': 'com.kimai2.' + aEntry['id'],
-        };
-
-        if (aEntry['project'] !== undefined && aEntry['project'] !== null) {
-            // how to handle unknown projects?
-            if (projects[aEntry['project']] === undefined || projects[aEntry['project']] === null) {
-                log('Unknown project with ID: ' + aEntry['project']);
-            } else {
-                var curProject = projects[aEntry['project']];
-                aItemResult['project'] = curProject['name'];
-
-                // how to handle unknown customer?
-                if (customers[curProject['customer']] === undefined || customers[curProject['customer']] === null) {
-                    log('Unknown customer with ID: ' + curProject['customer']);
-                } else {
-                    aItemResult['client'] = customers[curProject['customer']]['name'];
+    
+    var page = 1;
+    
+    do {
+        var pagedTimesUrl = timesUrl + '&page=' + page;
+        var aItems = kimaiGetApiJson(pagedTimesUrl, token);
+        if (aItems !== undefined && aItems !== null && aItems.length > 0) {
+            for (var aEntry of aItems)
+            {
+                var minutes = Math.round(aEntry['duration'] / 60);
+                var roundedMinutes = aEntry['rate'] / minutes * 60;
+                if (Math.round(roundedMinutes) !== roundedMinutes) {
+                    aEntry['rate'] = minutes / 60 * Math.round(roundedMinutes);
                 }
+                var aItemResult = {
+                    'startDate': aEntry['begin'],
+                    'client': '',
+                    'project': '',
+                    'minutes': minutes,
+                    'notes': aEntry['description'] !== null ? aEntry['description'] : '',
+                    'label': aEntry['tags'].join(", "),
+                    'user': aEntry['user'],
+                    'cost': aEntry['rate'],
+                    'uid': 'com.kimai2.' + aEntry['id'],
+                };
+
+                if (aEntry['project'] !== undefined && aEntry['project'] !== null) {
+                    // how to handle unknown projects?
+                    if (projects[aEntry['project']] === undefined || projects[aEntry['project']] === null) {
+                        log('Unknown project with ID: ' + aEntry['project']);
+                    } else {
+                        var curProject = projects[aEntry['project']];
+                        aItemResult['project'] = curProject['name'];
+
+                        // how to handle unknown customer?
+                        if (customers[curProject['customer']] === undefined || customers[curProject['customer']] === null) {
+                            log('Unknown customer with ID: ' + curProject['customer']);
+                        } else {
+                            aItemResult['client'] = customers[curProject['customer']]['name'];
+                        }
+                    }
+                }
+
+                if (aEntry['activity'] !== undefined && aEntry['activity'] !== null) {
+                    if (activities[aEntry['activity']] === undefined || activities[aEntry['activity']] === null) {
+                        log('Unknown activity with ID: ' + aEntry['activity']);
+                    } else {
+                        aItemResult['category'] = activities[aEntry['activity']]['name'];
+                    }
+                }
+
+                if (users[aEntry['user']] === undefined || users[aEntry['user']] === null) {
+                    log('Unknown user with ID: ' + aEntry['user']);
+                } else {
+                    var curUser = users[aEntry['user']];
+                    if (curUser['alias'] !== undefined && curUser['alias'] !== null && curUser['alias'] !== '') {
+                        aItemResult['user'] = curUser['alias'];
+                    } else {
+                        aItemResult['user'] = curUser['username'];
+                    }
+                }
+
+                result.push(aItemResult);
             }
         }
-
-        if (aEntry['activity'] !== undefined && aEntry['activity'] !== null) {
-            if (activities[aEntry['activity']] === undefined || activities[aEntry['activity']] === null) {
-                log('Unknown activity with ID: ' + aEntry['activity']);
-            } else {
-                aItemResult['category'] = activities[aEntry['activity']]['name'];
-            }
-        }
-
-        if (users[aEntry['user']] === undefined || users[aEntry['user']] === null) {
-            log('Unknown user with ID: ' + aEntry['user']);
-        } else {
-            var curUser = users[aEntry['user']];
-            if (curUser['alias'] !== undefined && curUser['alias'] !== null && curUser['alias'] !== '') {
-                aItemResult['user'] = curUser['alias'];
-            } else {
-                aItemResult['user'] = curUser['username'];
-            }
-        }
-
-        result.push(aItemResult);
-    }
+        page = page + 1;
+    } while (aItems !== undefined && aItems !== null && aItems.length > 0);
 
     return JSON.stringify(result);
 }
